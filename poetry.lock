@@ -867,6 +867,26 @@ testing = ["covdefaults (>=2.3)", "coverage (>=7.6.10)", "diff-cover (>=9.2.1)",
 typing = ["typing-extensions (>=4.12.2) ; python_version < \"3.11\""]
 
 [[package]]
+name = "flow-matching"
+version = "1.0.10"
+description = "Flow Matching for Generative Modeling"
+optional = false
+python-versions = ">=3.9.0"
+groups = ["main"]
+files = [
+    {file = "flow_matching-1.0.10-py3-none-any.whl", hash = "sha256:9e7bb6c51b5804bbb1450f59fbd04e2f843adc0b7665d0f4f341f420dce04136"},
+    {file = "flow_matching-1.0.10.tar.gz", hash = "sha256:b9cebb2534a1bead4fd8b6af9269cf75da88335adec629865be41e5f93bf5821"},
+]
+
+[package.dependencies]
+numpy = "*"
+torch = "*"
+torchdiffeq = "*"
+
+[package.extras]
+dev = ["black (==22.6.0)", "flake8 (==7.0.0)", "pre-commit", "pydoclint", "ufmt (==2.3.0)", "usort (==1.0.4)"]
+
+[[package]]
 name = "fonttools"
 version = "4.58.2"
 description = "Tools to manipulate font files"
@@ -3861,6 +3881,21 @@ opt-einsum = ["opt-einsum (>=3.3)"]
 optree = ["optree (>=0.13.0)"]
 
 [[package]]
+name = "torchdiffeq"
+version = "0.0.1"
+description = "ODE solvers and adjoint sensitivity analysis in PyTorch."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "torchdiffeq-0.0.1-py3-none-any.whl", hash = "sha256:4f30c76c69a8942f9b9721278beb446697dade2528beff29ec6011884df148ac"},
+    {file = "torchdiffeq-0.0.1.tar.gz", hash = "sha256:093be5bdb9c1a81fe3b318ae4dd2c09b33d70f545e55a6d24066b9adb1da8568"},
+]
+
+[package.dependencies]
+torch = ">=0.4.1"
+
+[[package]]
 name = "torchmetrics"
 version = "1.7.2"
 description = "PyTorch native Metrics"
@@ -4262,4 +4297,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10"
-content-hash = "f7bfe2f10c1595b5a058bcc1790a06078af70b75c386b19399b9a383e649439b"
+content-hash = "6ca57b5b4585d1ded961b680e1e72890739e73c9447221af8261a8801efd4b0e"
