@@ -14,7 +14,8 @@ dependencies = [
     "lightning (>=2.5.1.post0,<3.0.0)",
     "jupyter (>=1.1.1,<2.0.0)",
     "matplotlib (>=3.10.3,<4.0.0)",
-    "flow-matching (>=1.0.10,<2.0.0)"
+    "flow-matching (>=1.0.10,<2.0.0)",
+    "gymnasium[classic-control] (>=1.1.1,<2.0.0)"
 ]
 
 [tool.poetry]
