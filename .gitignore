@@ -196,5 +196,10 @@ cython_debug/
 # VSCode
 .vscode/
 
-# Models
+# Assets
 models/
+videos/
+wandb/
+
+# Mac
+.DS_Store
