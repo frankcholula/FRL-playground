@@ -20,7 +20,8 @@ dependencies = [
     "huggingface (>=0.0.1,<0.0.2)",
     "stable-baselines3[extra] (>=2.6.0,<3.0.0)",
     "wandb (>=0.20.1,<0.21.0)",
-    "huggingface-sb3 (>=3.0,<4.0)"
+    "huggingface-sb3 (>=3.0,<4.0)",
+    "pyvirtualdisplay (>=3.0,<4.0)"
 ]
 
 [tool.poetry]

@@ -3999,6 +3999,18 @@ files = [
 ]
 
 [[package]]
+name = "pyvirtualdisplay"
+version = "3.0"
+description = "python wrapper for Xvfb, Xephyr and Xvnc"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "PyVirtualDisplay-3.0-py3-none-any.whl", hash = "sha256:40d4b8dfe4b8de8552e28eb367647f311f88a130bf837fe910e7f180d5477f0e"},
+    {file = "PyVirtualDisplay-3.0.tar.gz", hash = "sha256:09755bc3ceb6eb725fb07eca5425f43f2358d3bf08e00d2a9b792a1aedd16159"},
+]
+
+[[package]]
 name = "pywin32"
 version = "310"
 description = "Python for Window Extensions"
@@ -5635,4 +5647,4 @@ propcache = ">=0.2.1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10"
-content-hash = "5cd3bf488f62796f081863cf5ce63d17658a8c053b6dc4b9269ada58aab4a66b"
+content-hash = "870d24c68dcc48ad6cfe8ac3583053894d17c449f47978e9d65d228172819bf9"
