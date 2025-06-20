@@ -1,5 +1,5 @@
 [project]
-name = "fm-playground"
+name = "frl-playground"
 version = "0.1.0"
 description = "experimenting with CNF and rectified flow."
 authors = [

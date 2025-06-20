@@ -1,2 +1,2 @@
-# FM-playground
-experimenting with rectified flow
+# FRL-playground
+experimenting with flow and reinforcement learning.
