@@ -15,8 +15,12 @@ dependencies = [
     "jupyter (>=1.1.1,<2.0.0)",
     "matplotlib (>=3.10.3,<4.0.0)",
     "flow-matching (>=1.0.10,<2.0.0)",
-    "gymnasium[classic-control] (>=1.1.1,<2.0.0)",
-    "seaborn (>=0.13.2,<0.14.0)"
+    "gymnasium[box2d] (>=1.1.1,<2.0.0)",
+    "seaborn (>=0.13.2,<0.14.0)",
+    "huggingface (>=0.0.1,<0.0.2)",
+    "stable-baselines3[extra] (>=2.6.0,<3.0.0)",
+    "wandb (>=0.20.1,<0.21.0)",
+    "huggingface-sb3 (>=3.0,<4.0)"
 ]
 
 [tool.poetry]

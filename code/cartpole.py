@@ -8,8 +8,7 @@ for t in range(1000):
     env.render()
     action = env.action_space.sample()
     observation, reward, terminated, truncated, info = env.step(action)
-    
+
     if terminated or truncated:
         observation, info = env.reset()
 env.close()
-
