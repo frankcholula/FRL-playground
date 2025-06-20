@@ -7,15 +7,35 @@ from stable_baselines3.common.monitor import Monitor
 
 from wandb.integration.sb3 import WandbCallback
 import os
+import wandb
 
-env_name = "LunarLander-v3"
-model_name = f"ppo-{env_name}"
+
+config = {
+    "policy_type": "MlpPolicy",
+    "total_timesteps": int(10e5),
+    "env_name": "LunarLander-v3",
+}
+
+model_name = f"ppo-{config['env_name']}"
 models_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), "../models")
 
-if model_name not in os.listdir("models_dir"):
-    env = make_vec_env(lambda: gym.make(env_name, continuous=False), n_envs=16)
+run = wandb.init(
+    project="FRL",
+    config=config,
+    sync_tensorboard=True,
+    monitor_gym=True,
+    save_code=True,
+)
+
+def make_env():
+    env = gym.make(config["env_name"], continuous=False)
+    env = Monitor(env)
+    return env
+
+if model_name not in os.listdir(models_dir):
+    env = make_vec_env(make_env, n_envs=16)
     model = PPO(
-        policy="MlpPolicy",
+        policy=config["policy_type"],
         env=env,
         n_steps=1024,
         batch_size=64,
@@ -25,8 +45,8 @@ if model_name not in os.listdir("models_dir"):
         ent_coef=0.01,
         verbose=1,
     )
-    model.learn(total_timesteps=int(10e5))
-    model.save(os.path.join("models", model_name))
+    model.learn(total_timesteps=config["total_timesteps"], callback=WandbCallback())
+    model.save(os.path.join(models_dir, model_name))
 
 else:
     eval_env = Monitor(gym.make("LunarLander-v3", render_mode="human"))
