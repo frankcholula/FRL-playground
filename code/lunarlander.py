@@ -10,13 +10,13 @@ import os
 
 env_name = "LunarLander-v3"
 model_name = f"ppo-{env_name}"
+models_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), "../models")
 
-if model_name not in os.listdir("models"):
-    env = gym.make(env_name, continuous=False)
-    vec_env = make_vec_env(env, n_envs=16)
+if model_name not in os.listdir("models_dir"):
+    env = make_vec_env(lambda: gym.make(env_name, continuous=False), n_envs=16)
     model = PPO(
         policy="MlpPolicy",
-        env=vec_env,
+        env=env,
         n_steps=1024,
         batch_size=64,
         n_epochs=4,
