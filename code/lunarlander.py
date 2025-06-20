@@ -16,7 +16,7 @@ env = gym.make("LunarLander-v3", continuous=False, render_mode="human")
 
 observation, info = env.reset()
 
-for _ in range(20):
+for _ in range(200):
     action = env.action_space.sample()
     print("Action taken:", action)
 
