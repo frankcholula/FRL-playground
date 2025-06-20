@@ -5,15 +5,17 @@ from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import VecVideoRecorder
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.monitor import Monitor
-
 from wandb.integration.sb3 import WandbCallback
+from dotenv import load_dotenv
 import os
 import wandb
+
+load_dotenv()
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 config = {
     "policy_type": "MlpPolicy",
-    "total_timesteps": int(1e5),
+    "total_timesteps": int(10e5),
     "env_name": "LunarLander-v3",
 }
 
@@ -38,7 +40,7 @@ if model_name not in os.listdir(model_dir):
     env = VecVideoRecorder(
         env,
         f"{video_dir}/{run.id}",
-        record_video_trigger=lambda x: x % 2000 == 0,
+        record_video_trigger=lambda x: x % 20000 == 0,
         video_length=200,
     )
     model = PPO(
@@ -57,6 +59,7 @@ if model_name not in os.listdir(model_dir):
         callback=WandbCallback(
             gradient_save_freq=100,
             model_save_path=f"{model_dir}/{run.id}",
+            model_name=model_name,
             verbose=2,
         ),
     )
