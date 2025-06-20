@@ -200,6 +200,7 @@ cython_debug/
 models/
 videos/
 wandb/
+runs/
 
 # Mac
 .DS_Store

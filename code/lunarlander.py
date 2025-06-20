@@ -22,12 +22,14 @@ config = {
 model_name = f"ppo-{config['env_name']}"
 model_dir = os.path.join(ROOT_DIR, "../models")
 video_dir = os.path.join(ROOT_DIR, "../videos")
+runs_dir = os.path.join(ROOT_DIR, "../runs")
 
 
 def make_env():
     return gym.make(config["env_name"], continuous=False, render_mode="rgb_array")
 
 
+# TODO: fix this.
 if model_name not in os.listdir(model_dir):
     run = wandb.init(
         project="FRL",
@@ -40,7 +42,7 @@ if model_name not in os.listdir(model_dir):
     env = VecVideoRecorder(
         env,
         f"{video_dir}/{run.id}",
-        record_video_trigger=lambda x: x % 20000 == 0,
+        record_video_trigger=lambda x: x % 2000 == 0,
         video_length=200,
     )
     model = PPO(
@@ -53,14 +55,15 @@ if model_name not in os.listdir(model_dir):
         gae_lambda=0.98,
         ent_coef=0.01,
         verbose=1,
+        tensorboard_log=f"{runs_dir}/{run.id}",
     )
     model.learn(
         total_timesteps=config["total_timesteps"],
         callback=WandbCallback(
             gradient_save_freq=100,
             model_save_path=f"{model_dir}/{run.id}",
-            model_name=model_name,
             verbose=2,
+            log="all",
         ),
     )
     run.finish()
