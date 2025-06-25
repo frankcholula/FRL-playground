@@ -1,10 +1,10 @@
-.PHONY: example
-example:
-	python sb3_example.py
-
 .PHONY: train
 train:
 	python lunarlander.py
+
+.PHONY: eval
+eval:
+	python eval.py
 
 .PHONY: clean
 clean:
