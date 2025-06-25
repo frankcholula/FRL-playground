@@ -53,15 +53,19 @@ model = PPO(
 
 model.learn(
     total_timesteps=LunarLanderConfig.total_timesteps,
-    callback=WandbCallback(
-        gradient_save_freq=100, model_save_path=f"models/{model_name}", log="parameters"
+    callback=CallbackList(
+        [
+            WandbCallback(
+                gradient_save_freq=100,
+                model_save_path=f"models/{model_name}",
+                log="parameters",
+            ),
+            VideoLoggingCallback(
+                video_dir=f"videos/{model_name}",
+                check_freq=2000,
+                verbose=1,
+            ),
+        ],
     ),
 )
-video_dir = os.path.join("videos", model_name)
-
-for fname in os.listdir(video_dir):
-    if fname.endswith(".mp4"):
-        video_path = os.path.join(video_dir, fname)
-        wandb.log({f"video": wandb.Video(video_path, format="mp4")})
-
 run.finish()
