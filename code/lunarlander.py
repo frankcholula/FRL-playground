@@ -14,7 +14,7 @@ import wandb
 
 load_dotenv()
 model_name = f"ppo-{LunarLanderConfig.env_name}"
-video_trigger_freq = 2000
+video_trigger_freq = 10000
 
 def make_env():
     env = gym.make(
@@ -36,7 +36,7 @@ env = VecVideoRecorder(
     env,
     f"videos/{model_name}",
     record_video_trigger=lambda x: x % video_trigger_freq == 0,
-    video_length=200,
+    video_length=250,
 )
 model = PPO(
     policy=LunarLanderConfig.policy_type,
