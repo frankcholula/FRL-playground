@@ -3,12 +3,15 @@ import gymnasium as gym
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import VecVideoRecorder
-
+from stable_baselines3.common.callbacks import CallbackList
 from wandb.integration.sb3 import WandbCallback
 
 from conf.environment import LunarLanderConfig
 from dotenv import load_dotenv
+from utils.loggers import VideoLoggingCallback
+
 import wandb
+import os
 
 load_dotenv()
 model_name = f"ppo-{LunarLanderConfig.env_name}"
@@ -32,7 +35,7 @@ env = make_vec_env(make_env, n_envs=16)
 env = VecVideoRecorder(
     env,
     f"videos/{model_name}",
-    record_video_trigger=lambda x: x % 4000 == 0,
+    record_video_trigger=lambda x: x % 2000 == 0,
     video_length=250,
 )
 model = PPO(
@@ -47,12 +50,18 @@ model = PPO(
     verbose=1,
     tensorboard_log="runs",
 )
+
 model.learn(
     total_timesteps=LunarLanderConfig.total_timesteps,
     callback=WandbCallback(
-        gradient_save_freq=100,
-        model_save_path=f"models/{model_name}",
-        verbose=2,
+        gradient_save_freq=100, model_save_path=f"models/{model_name}", log="parameters"
     ),
 )
+video_dir = os.path.join("videos", model_name)
+
+for fname in os.listdir(video_dir):
+    if fname.endswith(".mp4"):
+        video_path = os.path.join(video_dir, fname)
+        wandb.log({f"video": wandb.Video(video_path, format="mp4")})
+
 run.finish()
