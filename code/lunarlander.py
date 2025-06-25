@@ -5,13 +5,13 @@ from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import VecVideoRecorder
 from stable_baselines3.common.callbacks import CallbackList
 from wandb.integration.sb3 import WandbCallback
+from utils.loggers import VideoLoggingCallback
 
 from conf.environment import LunarLanderConfig
 from dotenv import load_dotenv
-from utils.loggers import VideoLoggingCallback
-
-import wandb
 import os
+import wandb
+import re
 
 load_dotenv()
 model_name = f"ppo-{LunarLanderConfig.env_name}"
@@ -29,8 +29,9 @@ run = wandb.init(
     config=LunarLanderConfig,
     sync_tensorboard=True,
     monitor_gym=True,
-    save_code=False,
+    save_code=True,
 )
+
 env = make_vec_env(make_env, n_envs=16)
 env = VecVideoRecorder(
     env,
@@ -59,13 +60,13 @@ model.learn(
                 gradient_save_freq=100,
                 model_save_path=f"models/{model_name}",
                 log="parameters",
+                verbose=2,
             ),
             VideoLoggingCallback(
-                video_dir=f"videos/{model_name}",
-                check_freq=2000,
-                verbose=1,
+                video_dir=os.path.join("videos", model_name), check_freq=2000
             ),
-        ],
+        ]
     ),
 )
+
 run.finish()
