@@ -36,7 +36,7 @@ env = VecVideoRecorder(
     env,
     f"videos/{model_name}",
     record_video_trigger=lambda x: x % video_trigger_freq == 0,
-    video_length=250,
+    video_length=500,
 )
 model = PPO(
     policy=LunarLanderConfig.policy_type,
