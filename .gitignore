@@ -204,3 +204,7 @@ runs/
 
 # Mac
 .DS_Store
+
+# ML-agents setup
+.mlagents
+ml-agents/
