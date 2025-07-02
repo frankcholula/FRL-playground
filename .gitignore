@@ -212,3 +212,7 @@ ml-agents/
 # OGBench setup
 .ogbench/
 ogbench/
+
+
+#FRL setup
+.frl/
