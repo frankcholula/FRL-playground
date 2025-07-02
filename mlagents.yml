@@ -18,7 +18,7 @@ dependencies:
   - libsqlite=3.46.0=hfb93653_0
   - libzlib=1.2.13=hfb2fe0b_6
   - ncurses=6.5=h5e97a16_3
-  - openssl=3.5.0=h81ee809_1
+  - openssl=3.5.1=h81ee809_0
   - pip=25.1.1=pyh8b19718_0
   - python=3.10.12=h01493a6_0_cpython
   - re2=2022.04.01=h6b3803e_0
