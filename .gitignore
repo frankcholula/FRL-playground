@@ -208,3 +208,6 @@ runs/
 # ML-agents setup
 .mlagents
 ml-agents/
+
+# OGBench setup
+.ogbench/
