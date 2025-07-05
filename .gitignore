@@ -201,6 +201,7 @@ models/
 videos/
 wandb/
 runs/
+logs/
 
 # Mac
 .DS_Store
