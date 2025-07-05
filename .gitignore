@@ -213,6 +213,8 @@ ml-agents/
 .ogbench/
 ogbench/
 
+# diffusion policy setup
+diffusion_policy/
 
 #FRL setup
 .frl/
