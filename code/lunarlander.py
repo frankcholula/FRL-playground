@@ -18,7 +18,7 @@ video_trigger_freq = 10000
 
 def make_env():
     env = gym.make(
-        LunarLanderConfig.env_name, continuous=False, render_mode="rgb_array"
+        LunarLanderConfig.env_name, continuous=True, render_mode="rgb_array"
     )
     return env
 
