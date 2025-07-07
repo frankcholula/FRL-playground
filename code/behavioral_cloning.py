@@ -17,7 +17,7 @@ from minari import DataCollector
 
 
 torch.manual_seed(42)
-sys.argv = ["python", "--algo", "ppo", "--env", "CartPole-v1"]
+sys.argv = ["python", "--algo", "ppo", "--env", "LunarLander-v1"]
 train()
 
 env = DataCollector(gym.make("CartPole-v1"))
