@@ -6,8 +6,11 @@ train:
 eval:
 	python eval.py
 
+.PHONY: collect_dataset
+collect_dataset:
+	python collect_dataset.py
 
-.PHONY: bc
+.PHONY: baseline
 bc:
 	python pipelines/behavioral_cloning.py
 
