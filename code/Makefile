@@ -10,9 +10,9 @@ eval:
 collect_dataset:
 	python collect_dataset.py
 
-.PHONY: baseline
-bc:
-	python pipelines/behavioral_cloning.py
+.PHONY: baseline_bc
+baseline_bc:
+	python pipelines/baseline_bc.py
 
 .PHONY: clean
 clean:
