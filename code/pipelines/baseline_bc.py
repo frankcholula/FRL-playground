@@ -20,7 +20,7 @@ class PolicyNetwork(nn.Module):
     def forward(self, x):
         x = torch.relu(self.fc1(x))
         x = torch.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = torch.tanh(self.fc3(x))
         return x
 
 
@@ -51,23 +51,29 @@ dataloader = DataLoader(
 )
 
 env = minari_dataset.recover_environment()
+
 observation_space = env.observation_space
 action_space = env.action_space
+
 assert isinstance(observation_space, spaces.Box)
-assert isinstance(action_space, spaces.Discrete)
+assert isinstance(action_space, spaces.Box)
 
-policy_net = PolicyNetwork(np.prod(observation_space.shape), action_space.n)
+obs_dim = np.prod(observation_space.shape)
+action_dim = action_space.shape[0]
+print(f"Observation space dimension: {obs_dim}, Action space dimension: {action_dim}")
+
+policy_net = PolicyNetwork(obs_dim, action_dim)
 optimizer = torch.optim.Adam(policy_net.parameters())
-loss_fn = nn.CrossEntropyLoss()
+loss_fn = nn.MSELoss()
 
-
-num_epochs = 32
-
+num_epochs = 50
 for epoch in range(num_epochs):
     for batch in dataloader:
-        a_pred = policy_net(batch["observations"][:, :-1])
-        a_hat = F.one_hot(batch["actions"]).type(torch.float32)
-        loss = loss_fn(a_pred, a_hat)
+        observations = batch["observations"][:, :-1]  # Exclude the last observation
+        expert_actions = batch["actions"]
+
+        predictioned_actions = policy_net(observations)
+        loss = loss_fn(predictioned_actions, expert_actions)
 
         optimizer.zero_grad()
         loss.backward()
@@ -75,16 +81,16 @@ for epoch in range(num_epochs):
 
     print(f"Epoch: {epoch}/{num_epochs}, Loss: {loss.item()}")
 
-
-env = gym.make("CartPole-v1", render_mode="human")
-obs, _ = env.reset(seed=42)
+eval_env = gym.make("LunarLander-v3", continuous=True, render_mode="human")
+obs, _ = eval_env.reset()
 done = False
-accumulated_reward = 0
+accumulated_rew = 0
 while not done:
-    action = policy_net(torch.Tensor(obs)).argmax()
-    obs, rew, ter, tru, _ = env.step(action.numpy())
+    obs_tensor = torch.Tensor(obs)
+    action = policy_net(obs_tensor).detach().numpy()
+    obs, rew, ter, tru, _ = eval_env.step(action)
     done = ter or tru
-    accumulated_reward += rew
+    accumulated_rew += rew
 
 env.close()
-print("Accumulated reward: ", accumulated_reward)
+print("Accumulated rew: ", accumulated_rew)
