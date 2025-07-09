@@ -2,15 +2,14 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import minari
+
+import gymnasium as gym
 from gymnasium import spaces
 from rl_zoo3.train import train
 from torch.utils.data import DataLoader
-from tqdm.auto import tqdm
-
-import minari
 
 
-# Sanity check for BC
 class PolicyNetwork(nn.Module):
     def __init__(self, input_dim, output_dim):
         super().__init__()
