@@ -1,48 +1,16 @@
-import os
-import sys
-
-import gymnasium as gym
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from gymnasium import spaces
 from rl_zoo3.train import train
-from stable_baselines3 import PPO
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 
 import minari
-from minari import DataCollector
 
 
-torch.manual_seed(42)
-sys.argv = ["python", "--algo", "ppo", "--env", "LunarLander-v1"]
-train()
-
-env = DataCollector(gym.make("CartPole-v1"))
-path = os.path.abspath("") + "/logs/ppo/CartPole-v1_1/best_model"
-agent = PPO.load(path)
-
-total_episodes = 1_000
-for i in tqdm(range(total_episodes)):
-    obs, _ = env.reset(seed=42)
-    while True:
-        action, _ = agent.predict(obs)
-        obs, rew, terminated, truncated, info = env.step(action)
-
-        if terminated or truncated:
-            break
-
-dataset = env.create_dataset(
-    dataset_id="CartPole-v1-expert",
-    algorithm_name="ExpertPolicy",
-    code_permalink="https://minari.farama.org/tutorials/behavioral_cloning",
-    author="Farama",
-    author_email="contact@farama.org",
-)
-
-
+# Sanity check for BC
 class PolicyNetwork(nn.Module):
     def __init__(self, input_dim, output_dim):
         super().__init__()
@@ -60,8 +28,6 @@ class PolicyNetwork(nn.Module):
 def collate_fn(batch):
     return {
         "id": torch.Tensor([x.id for x in batch]),
-        # "seed": torch.Tensor([x.seed for x in batch]),
-        # "total_timesteps": torch.Tensor([x.total_timesteps for x in batch]),
         "observations": torch.nn.utils.rnn.pad_sequence(
             [torch.as_tensor(x.observations) for x in batch], batch_first=True
         ),
@@ -80,7 +46,7 @@ def collate_fn(batch):
     }
 
 
-minari_dataset = minari.load_dataset("CartPole-v1-expert")
+minari_dataset = minari.load_dataset("LunarLanderContinuous-v3/ppo-1000-v1")
 dataloader = DataLoader(
     minari_dataset, batch_size=256, shuffle=True, collate_fn=collate_fn
 )

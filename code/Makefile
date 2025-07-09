@@ -6,6 +6,11 @@ train:
 eval:
 	python eval.py
 
+
+.PHONY: bc
+bc:
+	python pipelines/behavioral_cloning.py
+
 .PHONY: clean
 clean:
 	rm -rf models/*
