@@ -6,10 +6,10 @@ import minari
 
 import gymnasium as gym
 from gymnasium import spaces
-from rl_zoo3.train import train
 from torch.utils.data import DataLoader
 
 
+# just a simple MLP policy network
 class PolicyNetwork(nn.Module):
     def __init__(self, input_dim, output_dim):
         super().__init__()
