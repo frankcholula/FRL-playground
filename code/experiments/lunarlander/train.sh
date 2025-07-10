@@ -6,9 +6,9 @@ python -m rl_zoo3.train \
     --track \
     --wandb-project-name FRL \
     --wandb-entity frankcholula \
+    --device cpu \
     -params \
     n_envs:16 \
-    policy:MlpPolicy \
     n_steps:1024 \
     batch_size:64 \
     n_epochs:4 \
