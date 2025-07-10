@@ -8,9 +8,10 @@ python -m rl_zoo3.train \
     --wandb-entity frankcholula \
     -params \
     n_envs:16 \
+    policy:MlpPolicy \
     n_steps:1024 \
     batch_size:64 \
     n_epochs:4 \
-    gamma:0.999 \
     gae_lambda:0.98 \
+    gamma:0.999 \
     ent_coef:0.01
