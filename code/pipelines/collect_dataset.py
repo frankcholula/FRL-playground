@@ -5,7 +5,7 @@ import gymnasium as gym
 import os
 
 env = DataCollector(gym.make("LunarLander-v3", continuous=True))
-path = os.path.abspath("") + "/code/models/ppo-LunarLander-v3/model.zip"
+path = os.path.abspath("") + "/logs/ppo/LunarLanderContinuous-v3_1/best_model.zip"
 agent = PPO.load(path)
 
 total_episodes = 1_000

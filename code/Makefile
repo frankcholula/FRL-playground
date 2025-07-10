@@ -1,6 +1,6 @@
 .PHONY: train
 train:
-	python lunarlander.py
+	./experiments/lunarlander/train.sh
 
 .PHONY: eval
 eval:
@@ -8,7 +8,7 @@ eval:
 
 .PHONY: collect_dataset
 collect_dataset:
-	python collect_dataset.py
+	python pipelines/collect_dataset.py
 
 .PHONY: baseline_bc
 baseline_bc:

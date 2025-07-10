@@ -67,16 +67,23 @@ dependencies:
   - zeromq=4.3.5=h6a678d5_0
   - zlib=1.2.13=h5eee18b_1
   - pip:
+      - click==8.2.1
+      - cloudpickle==3.1.1
       - contourpy==1.3.2
       - cycler==0.12.1
+      - farama-notifications==0.0.4
       - filelock==3.18.0
       - flow-matching==1.0.10
       - fonttools==4.58.5
       - fsspec==2025.5.1
+      - gymnasium==1.2.0
       - jinja2==3.1.6
       - kiwisolver==1.4.8
+      - markdown-it-py==3.0.0
       - markupsafe==3.0.2
       - matplotlib==3.10.3
+      - mdurl==0.1.2
+      - minari==0.5.3
       - mpmath==1.3.0
       - networkx==3.4.2
       - numpy==2.2.6
@@ -96,10 +103,13 @@ dependencies:
       - nvidia-nvtx-cu12==12.6.77
       - pillow==11.3.0
       - pyparsing==3.2.3
+      - rich==14.0.0
       - scipy==1.15.3
+      - shellingham==1.5.4
       - sympy==1.14.0
       - torch==2.7.1
       - torchdiffeq==0.2.5
       - tqdm==4.67.1
       - triton==3.3.1
+      - typer==0.16.0
 prefix: /home/frankcholula/Workspace/School/FRL-playground/.frl
