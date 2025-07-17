@@ -14,6 +14,10 @@ collect_dataset:
 baseline_bc:
 	python pipelines/baseline_bc.py
 
+.PHONY: fm_bc
+fm_bc:
+	python fm_bc.py
+
 .PHONY: clean
 clean:
 	rm -rf models/*

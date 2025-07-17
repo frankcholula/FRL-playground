@@ -24,11 +24,13 @@ class VideoLoggingCallback(BaseCallback):
                             )
         return True
 
+
 class WandBLogger:
-    def __init__(self, project_name, entity=None):
+    def __init__(self, config, project_name="FRL", entity="frankcholula"):
         self.project_name = project_name
         self.entity = entity
-        wandb.init(project=self.project_name, entity=self.entity)
+        self.config = config
+        wandb.init(project=self.project_name, entity=self.entity, config=self.config)
 
     def log(self, data):
         wandb.log(data)
@@ -38,4 +40,4 @@ class WandBLogger:
 
     @staticmethod
     def get_run_url():
-        return wandb.run.get_url() if wandb.run else None   
+        return wandb.run.get_url() if wandb.run else None
