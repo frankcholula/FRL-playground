@@ -216,6 +216,7 @@ ogbench/
 
 # diffusion policy setup
 diffusion_policy/
+.diffusionpolicy/
 
 #FRL setup
 .frl/
