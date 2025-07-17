@@ -7,7 +7,7 @@ python -m rl_zoo3.train \
     --wandb-project-name FRL \
     --wandb-entity frankcholula \
     --device cpu \
-    -params \
+    --hyperparams \
     n_envs:16 \
     n_steps:1024 \
     batch_size:64 \

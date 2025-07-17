@@ -91,7 +91,7 @@ def collate_fn(batch):
         ),
         "truncations": torch.nn.utils.rnn.pad_sequence(
             [torch.as_tensor(x.truncations) for x in batch], batch_first=True
-        ),
+        )
     }
 
 
