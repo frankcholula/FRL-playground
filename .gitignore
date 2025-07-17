@@ -206,17 +206,14 @@ logs/
 # Mac
 .DS_Store
 
-# ML-agents setup
+# Cloned Repositories
 .mlagents
 ml-agents/
-
-# OGBench setup
 .ogbench/
 ogbench/
-
-# diffusion policy setup
 diffusion_policy/
 .diffusionpolicy/
+iap-diffusion-labs/
 
 #FRL setup
 .frl/

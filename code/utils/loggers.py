@@ -23,3 +23,19 @@ class VideoLoggingCallback(BaseCallback):
                                 f"[W&B] Logged video: {fname} at step {self.num_timesteps}"
                             )
         return True
+
+class WandBLogger:
+    def __init__(self, project_name, entity=None):
+        self.project_name = project_name
+        self.entity = entity
+        wandb.init(project=self.project_name, entity=self.entity)
+
+    def log(self, data):
+        wandb.log(data)
+
+    def finish(self):
+        wandb.finish()
+
+    @staticmethod
+    def get_run_url():
+        return wandb.run.get_url() if wandb.run else None   
