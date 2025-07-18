@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import minari
 
 # WandB
-from src.utils.loggers import WandBLoggers
+from src.utils.loggers import WandBLogger
 
 # To avoide meshgrid warning
 import warnings
