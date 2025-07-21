@@ -1,7 +1,7 @@
 .PHONY: fm
 fm:
 	@echo "Running flow matching experiment..."
-	./experiments/fm.sh
+	@./experiments/fm.sh
 
 .PHONY: train
 train:

@@ -101,14 +101,18 @@ def generate(model, stats, input_dim, obs_dim, action_dim, args):
 
 def main():
     args = parse_args()
-    print(args)
-    # torch.manual_seed(42)
-    # if args.device:
-    #     torch.set_default_device(args.device)
-    # model, stats, input_dim, obs_dim, action_dim = train(args)
-    # obs, act = generate(model, stats, input_dim, obs_dim, action_dim, args)
-    # print("Generated observation shape:", obs.shape)
-    # print("Generated action shape:", act.shape)
+
+    # Set random seeds for reproducibility
+    torch.manual_seed(args.seed)
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+
+    if args.device:
+        torch.set_default_device(args.device)
+    model, stats, input_dim, obs_dim, action_dim = train(args)
+    obs, act = generate(model, stats, input_dim, obs_dim, action_dim, args)
+    print("Generated observation shape:", obs.shape)
+    print("Generated action shape:", act.shape)
 
 
 if __name__ == "__main__":
