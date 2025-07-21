@@ -1,7 +1,8 @@
 import argparse
+import torch
 
 
-def get_args() -> argparse.Namespace:
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Flow matching trajectory generation.")
     parser.add_argument(
         "--dataset-name",
@@ -14,4 +15,7 @@ def get_args() -> argparse.Namespace:
     parser.add_argument("--num-epochs", type=int, default=1000)
     parser.add_argument("--lr", type=float, default=1e-3)
     parser.add_argument("--model-type", type=str, default="cnn", choices=["mlp", "cnn"])
+    parser.add_argument(
+        "--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu"
+    )
     return parser.parse_args()
