@@ -1,4 +1,4 @@
-# FM Planner
+# Flow Planner 👾
 Generative trajectory synthesis via flow matching. 
 
 ## Setup
