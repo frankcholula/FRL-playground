@@ -3,9 +3,10 @@ from minari import DataCollector
 from stable_baselines3 import PPO
 import gymnasium as gym
 import os
+from pathlib import Path
 
 env = DataCollector(gym.make("LunarLander-v3", continuous=True))
-path = os.path.abspath("") + "/logs/ppo/LunarLanderContinuous-v3_1/best_model.zip"
+path = Path(__file__).resolve().parents[2] / "logs/ppo/LunarLanderContinuous-v3_1/best_model.zip"
 agent = PPO.load(path)
 
 total_episodes = 1_000
