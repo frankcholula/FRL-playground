@@ -1,5 +1,5 @@
-# FRL-playground
-Experimenting with flow and reinforcement learning.
+# FM Planner
+Generative trajectory synthesis via flow matching. 
 
 ## Setup
 Create the conda environment and activate it:
