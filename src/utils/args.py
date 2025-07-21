@@ -19,3 +19,4 @@ def parse_args() -> argparse.Namespace:
         "--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu"
     )
     return parser.parse_args()
+
