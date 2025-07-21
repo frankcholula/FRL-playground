@@ -29,3 +29,4 @@ clean:
 	rm -rf videos/*
 	rm -rf runs/*
 	rm -rf wandb/*
+	find . -type d -name "__pycache__" -exec rm -r {} + -o -type f \( -name "*.pyc" -o -name "*.pyo" \) -delete

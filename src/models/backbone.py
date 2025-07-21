@@ -57,3 +57,12 @@ class TemporalCNN(nn.Module):
         h = torch.cat([x_reshaped, t_expanded], dim=1)
         out = self.main(h)
         return out.permute(0, 2, 1).reshape(x.shape)
+
+
+# TODO: Implement UNet
+class UNet(nn.Module):
+    pass
+
+# TODO: Implement ControlNet for conditioning case.
+class ControlNet(nn.Module):
+    pass
