@@ -205,14 +205,5 @@ logs/
 # Mac
 .DS_Store
 
-# Cloned Repositories
-.mlagents
-ml-agents/
-.ogbench/
-ogbench/
-diffusion_policy/
-.diffusionpolicy/
-iap-diffusion-labs/
-
-#FRL setup
+#conda environment
 .frl/
