@@ -9,7 +9,7 @@ conda env create -f frl.yml
 conda activate frl
 ```
 
-## Makefile targets
+## Makefile Targets
 The Makefile in `src` exposes several commands:
 
 - `make fm` – run the flow-matching experiment (`experiments/fm.sh`).
@@ -22,7 +22,7 @@ The Makefile in `src` exposes several commands:
 
 Run these commands from the `src` directory.
 
-## Pipeline scripts
+## Pipeline Scripts
 The `src/pipelines/lunarlander` folder contains helper scripts:
 
 - `collect_dataset.py` – loads a trained PPO agent and records episodes to build a Minari dataset.
