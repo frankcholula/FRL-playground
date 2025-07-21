@@ -18,5 +18,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu"
     )
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--no-wandb", action="store_true", help="Disable W&B logging")
     return parser.parse_args()
-

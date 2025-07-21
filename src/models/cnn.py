@@ -1,10 +1,6 @@
 import torch
 from torch import nn, Tensor
-
-
-class Swish(nn.Module):
-    def forward(self, x: Tensor) -> Tensor:
-        return torch.sigmoid(x) * x
+from activation_fns import Swish
 
 
 class TemporalCNN(nn.Module):
