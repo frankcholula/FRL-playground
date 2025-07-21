@@ -71,8 +71,8 @@ for epoch in range(num_epochs):
         observations = batch["observations"][:, :-1]  # Exclude the last observation
         expert_actions = batch["actions"]
 
-        predictioned_actions = policy_net(observations)
-        loss = loss_fn(predictioned_actions, expert_actions)
+        predicted_actions = policy_net(observations)
+        loss = loss_fn(predicted_actions, expert_actions)
 
         optimizer.zero_grad()
         loss.backward()
