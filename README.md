@@ -1,6 +1,4 @@
-<div align="center">
 # Flow Planner 👾
-</div>
 Generative trajectory synthesis via flow matching. 
 
 ## Setup
