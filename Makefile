@@ -1,3 +1,4 @@
+
 ARCH := $(shell arch)
 ifeq ($(ARCH), x86_64)
 	SETUP_FILE := setup/environment_x86.yml
@@ -13,32 +14,32 @@ setup:
 .PHONY: fm
 fm:
 	@echo "Running flow matching experiment..."
-	@./experiments/fm.sh
+	@src/experiments/fm.sh
 
 .PHONY: train
 train:
-	./experiments/lunarlander/train.sh
+	@echo "Running training script..."
+	@src/experiments/lunarlander/train.sh
 
 .PHONY: eval
 eval:
-	python eval.py
+	@echo "Running evaluation script..."
+	@python src/pipelines/eval.py
 
 .PHONY: collect_dataset
 collect_dataset:
-	python pipelines/collect_dataset.py
+	python src/pipelines/collect_dataset.py
 
 .PHONY: baseline_bc
 baseline_bc:
-	python pipelines/baseline_bc.py
+	python src/pipelines/baseline_bc.py
 
 .PHONY: fm_bc
 fm_bc:
-	python fm_bc.py
+	python src/pipelines/fm_bc.py
 
 .PHONY: clean
 clean:
-	rm -rf models/*
-	rm -rf videos/*
-	rm -rf runs/*
-	rm -rf wandb/*
-	find . -type d -name "__pycache__" -exec rm -r {} + -o -type f \( -name "*.pyc" -o -name "*.pyo" \) -delete
+# 	rm -rf videos/*
+# 	rm -rf runs/*
+# 	rm -rf wandb/*
