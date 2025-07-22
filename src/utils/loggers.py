@@ -35,7 +35,7 @@ class WandBLogger:
 
     def save_model(self, model_path):
         print(f"Saving {model_path} to WandB artifacts...")
-        artifact = wandb.Artifact(name=f"model-{self.run.id}", type="model")
+        artifact = wandb.Artifact(name=f"model-{self.run.name}", type="model")
         artifact.add_file(local_path=model_path)
         self.run.log_artifact(artifact)
         print("Model artifact saved.")

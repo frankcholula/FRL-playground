@@ -201,6 +201,7 @@ videos/
 wandb/
 runs/
 logs/
+checkpoints/
 
 # Mac
 .DS_Store
