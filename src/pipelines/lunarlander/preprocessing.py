@@ -44,6 +44,31 @@ def get_dataset_stats(dataset):
     return stats
 
 
+def create_trajectory_chunks(batch, horizon):
+    batch_size = batch["observations"].shape[0]
+    all_chunks = []
+
+    for i in range(batch_size):
+        # Get the data for one episode and its true length
+        obs = batch["observations"][i]
+        act = batch["actions"][i]
+        length = batch["episode_lengths"][i]
+
+        # Slide a window of size 'horizon' over the valid part of the episode
+        for start_idx in range(length - horizon + 1):
+            end_idx = start_idx + horizon
+
+            obs_chunk = obs[start_idx:end_idx]
+            act_chunk = act[start_idx:end_idx]
+            chunk = torch.cat([obs_chunk, act_chunk], dim=-1)
+            all_chunks.append(chunk.flatten())
+
+    if not all_chunks:
+        return None
+
+    return torch.stack(all_chunks)
+
+
 def create_normalized_chunks(batch, horizon, stats):
     obs_mean, obs_std = stats["obs_mean"], stats["obs_std"]
     act_mean, act_std = stats["act_mean"], stats["act_std"]
