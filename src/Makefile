@@ -1,3 +1,14 @@
+ARCH := $(shell arch)
+ifeq ($(ARCH), x86_64)
+	SETUP_FILE := setup/environment_x86.yml
+else ifeq ($(ARCH), arm64)
+	SETUP_FILE := setup/environment_arm.yml
+endif
+
+.PHONY: setup
+setup:
+	conda env create -f $(SETUP_FILE) --prefix ./.fp
+
 .PHONY: fm
 fm:
 	@echo "Running flow matching experiment..."
