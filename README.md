@@ -5,13 +5,13 @@ Generative trajectory synthesis via flow matching.
 Create the conda environment and activate it:
 
 ```bash
-conda env create -f frl.yml
-conda activate frl
+make setup
+conda activate ./.fp
 ```
 
 ## Makefile Targets
 The Makefile in `src` exposes several commands:
-
+- `make setup` – create a conda environment with the required dependencies.
 - `make fm` – run the flow-matching experiment (`experiments/fm.sh`).
 - `make train` – train a PPO agent using `experiments/lunarlander/train.sh`.
 - `make eval` – evaluate a trained model via `pipelines/lunarlander/eval.py`.
