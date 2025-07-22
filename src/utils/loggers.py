@@ -26,18 +26,20 @@ class VideoLoggingCallback(BaseCallback):
 
 
 class WandBLogger:
-    def __init__(self, config, project_name="FRL", entity="frankcholula"):
-        self.project_name = project_name
-        self.entity = entity
-        self.config = config
-        wandb.init(project=self.project_name, entity=self.entity, config=self.config)
+    def __init__(self, config, project_name="FRL", entity="frankcholula",run_id=None):
+        print("Initializing WandB logger...")
+        self.run = wandb.init(project= project_name, entity=entity, config=config, id=run_id)
 
     def log(self, data):
-        wandb.log(data)
+        self.run.log(data)
+
+    def save_model(self, model_path):
+        print(f"Saving {model_path} to WandB artifacts...")
+        artifact = wandb.Artifact(name=f"model-{self.run.id}", type="model")
+        artifact.add_file(local_path=model_path)
+        self.run.log_artifact(artifact)
+        print("Model artifact saved.")
 
     def finish(self):
-        wandb.finish()
-
-    @staticmethod
-    def get_run_url():
-        return wandb.run.get_url() if wandb.run else None
+        self.run.finish()
+        print("WandB run finished.")

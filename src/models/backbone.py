@@ -1,6 +1,6 @@
 import torch
 from torch import nn, Tensor
-from models.activation_fns import Swish
+from src.models.activation_fns import Swish
 
 
 class MLP(nn.Module):
