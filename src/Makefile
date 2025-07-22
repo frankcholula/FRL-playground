@@ -7,6 +7,7 @@ endif
 
 .PHONY: setup
 setup:
+	@echo "Setting up ${ARCH} environment..."
 	conda env create -f $(SETUP_FILE) --prefix ./.fp
 
 .PHONY: fm
