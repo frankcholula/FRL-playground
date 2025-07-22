@@ -40,6 +40,6 @@ fm_bc:
 
 .PHONY: clean
 clean:
-# 	rm -rf videos/*
-# 	rm -rf runs/*
-# 	rm -rf wandb/*
+	rm -rf videos/*
+	rm -rf runs/*
+	rm -rf wandb/*
