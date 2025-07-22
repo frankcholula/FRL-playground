@@ -206,4 +206,4 @@ logs/
 .DS_Store
 
 #conda environment
-.frl/
+.fp/
