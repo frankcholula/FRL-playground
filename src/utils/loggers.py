@@ -26,9 +26,9 @@ class VideoLoggingCallback(BaseCallback):
 
 
 class WandBLogger:
-    def __init__(self, config, project_name="FRL", entity="frankcholula",run_id=None):
+    def __init__(self, config, project_name="Flow Planner", entity="frankcholula",run_name=None):
         print("Initializing WandB logger...")
-        self.run = wandb.init(project= project_name, entity=entity, config=config, id=run_id)
+        self.run = wandb.init(project= project_name, entity=entity, config=config, name=run_name)
 
     def log(self, data):
         self.run.log(data)
