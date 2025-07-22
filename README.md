@@ -1,5 +1,5 @@
 # Flow Planner 👾
-Generative trajectory synthesis via flow matching. 
+Guided trajectory synthesis via flow matching.
 
 ## Setup
 Create the conda environment and activate it:
