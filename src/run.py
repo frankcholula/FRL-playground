@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
-from models.backbone import MLP, TemporalCNN
+from models.backbone import TemporalCNN
 from utils.args import parse_args
 from utils.loggers import WandBLogger
 
