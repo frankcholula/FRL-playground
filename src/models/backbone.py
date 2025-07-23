@@ -36,19 +36,19 @@ class MLP(nn.Module):
 
 
 class TemporalCNN(nn.Module):
-    def __init__(self, horizon: int, transition_dim: int, hidden_dim: int = 128):
+    def __init__(self, horizon: int, transition_dim: int, hidden_dim: int = 128, kernel_size: int=5):
         super().__init__()
         self.horizon = horizon
         self.transition_dim = transition_dim
         input_channels = transition_dim + 1
         self.main = nn.Sequential(
-            nn.Conv1d(input_channels, hidden_dim, kernel_size=5, padding="same"),
+            nn.Conv1d(input_channels, hidden_dim, kernel_size=kernel_size, padding="same"),
             Swish(),
-            nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding="same"),
+            nn.Conv1d(hidden_dim, hidden_dim, kernel_size=kernel_size, padding="same"),
             Swish(),
-            nn.Conv1d(hidden_dim, hidden_dim, kernel_size=5, padding="same"),
+            nn.Conv1d(hidden_dim, hidden_dim, kernel_size=kernel_size, padding="same"),
             Swish(),
-            nn.Conv1d(hidden_dim, transition_dim, kernel_size=5, padding="same"),
+            nn.Conv1d(hidden_dim, transition_dim, kernel_size=kernel_size, padding="same"),
         )
 
     def forward(self, x: Tensor, t: Tensor) -> Tensor:
