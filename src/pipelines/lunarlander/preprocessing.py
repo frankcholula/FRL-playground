@@ -80,24 +80,19 @@ def create_trajectory_chunks(batch, horizon):
     return torch.stack(all_chunks)
 
 
-def create_normalized_chunks(batch, horizon, stats, conditional=False):
+def create_normalized_chunks(batch, horizon, stats, cond_type=None):
     """
-    Creates normalized chunks. If conditional is True, also returns
-    the corresponding normalized reward condition.
+    Creates normalized chunks. Can be unconditional, or conditional on
+    total reward or the starting observation of the chunk.
+
+    Args:
+        cond_type (str, optional): Can be 'reward' or 'start_obs'. Defaults to None.
     """
     obs_mean, obs_std = stats["obs_mean"], stats["obs_std"]
     act_mean, act_std = stats["act_mean"], stats["act_std"]
 
     all_chunks = []
-
-    if conditional:
-        if "rew_mean" not in stats or "total_rewards" not in batch:
-            # TODO: condition on rewards only for now
-            raise ValueError(
-                "Stats dictionary or batch is missing required keys for conditional generation."
-            )
-        rew_mean, rew_std = stats["rew_mean"], stats["rew_std"]
-        all_conds = []
+    all_conds = [] if cond_type else None
 
     for i in range(batch["observations"].shape[0]):
         obs, act, length = (
@@ -109,31 +104,41 @@ def create_normalized_chunks(batch, horizon, stats, conditional=False):
         if length < horizon:
             continue
 
-        if conditional:
+        # If conditioning on reward, calculate it once per episode
+        if cond_type == "reward":
+            rew_mean, rew_std = stats["rew_mean"], stats["rew_std"]
             total_reward = batch["total_rewards"][i]
-            norm_reward = (total_reward - rew_mean) / rew_std
+            norm_cond = (total_reward - rew_mean) / rew_std
 
+        # Slide the window across the episode
         for start_idx in range(length - horizon + 1):
             end_idx = start_idx + horizon
             obs_chunk = obs[start_idx:end_idx]
             act_chunk = act[start_idx:end_idx]
 
+            # Normalize the main trajectory chunk
             norm_obs_chunk = (obs_chunk - obs_mean) / obs_std
             norm_act_chunk = (act_chunk - act_mean) / act_std
-
             chunk = torch.cat([norm_obs_chunk, norm_act_chunk], dim=-1)
             all_chunks.append(chunk.flatten())
 
-            if conditional:
-                all_conds.append(norm_reward)
+            # If conditional, prepare the corresponding condition
+            if cond_type == "start_obs":
+                start_obs = obs_chunk[0]
+                norm_cond = (start_obs - obs_mean) / obs_std
+                all_conds.append(norm_cond)
+            elif cond_type == "reward":
+                all_conds.append(norm_cond)
 
     if not all_chunks:
-        return (None, None) if conditional else None
+        return (None, None) if cond_type else None
 
     stacked_chunks = torch.stack(all_chunks)
 
-    if conditional:
-        stacked_conds = torch.stack(all_conds).unsqueeze(1)
+    if cond_type:
+        stacked_conds = torch.stack(all_conds)
+        if cond_type == "reward":
+            stacked_conds = stacked_conds.unsqueeze(1)
         return stacked_chunks, stacked_conds
     else:
         return stacked_chunks
